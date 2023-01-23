@@ -15,7 +15,7 @@ public class Review {
 	private String comments;
 	
 	@ManyToOne
-	private Books books;
+	private Book book;
 	public int getRating() {
 		return rating;
 	}
