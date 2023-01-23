@@ -1,5 +1,10 @@
 package com.bootapp.rest.restapp.data;
 
-public interface ReviewRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bootapp.rest.restapp.model.Review;
+
+
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
 }
