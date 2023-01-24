@@ -8,4 +8,8 @@ import com.bootapp.rest.restapp.model.Publisher;
 
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
 
+	
+
+	
+
 }
