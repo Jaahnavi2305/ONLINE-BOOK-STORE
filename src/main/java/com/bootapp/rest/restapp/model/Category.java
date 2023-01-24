@@ -13,7 +13,9 @@ import com.bootapp.rest.restapp.enums.CategoryEnum;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 		private int id;
+	
 		@Enumerated(EnumType.STRING)
 		private CategoryEnum categoryenum;
 		

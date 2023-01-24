@@ -11,7 +11,7 @@
 	<groupId>com.bootapp.rest</groupId>
 	<artifactId>RestApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EmployeeManagementApp</name>
+	<name>OnlineBookStoreApp</name>
 	<description>Backend project for REST API</description>
 	<properties>
 		<java.version>1.8</java.version>

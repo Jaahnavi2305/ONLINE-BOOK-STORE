@@ -12,7 +12,7 @@ public class Author {
 	
 		private int id;
 		private String name;
-		private String books;
+		private String book;
 		
 		
 		public int getId() {
@@ -27,10 +27,10 @@ public class Author {
 		public void setName(String name) {
 			this.name = name;
 		}
-		public String getBooks() {
-			return books;
+		public String getBook() {
+			return book;
 		}
-		public void setBooks(String books) {
-			this.books = books;
+		public void setBooks(String book) {
+			this.book = book;
 		}
 }
