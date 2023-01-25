@@ -2,6 +2,7 @@ package com.bootapp.rest.restapp.service;
 
 import java.util.List;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,13 @@ public class AuthorService {
 	public void updateAuthorById(Author author) {
 		authorRepository.save(author);
 	}
+	public Optional<Author> deleteAuthorById(int authorId) {
+		Optional<Author> optional = authorRepository.findById(authorId);
+		return optional;
 
-	public void deleteAuthorById(Author author) {
-		authorRepository.delete(author);
+	
+
+
 	}
-
 }
+

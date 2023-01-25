@@ -63,10 +63,15 @@ public class AuthorController {
 	// delete by id
 
 	@DeleteMapping("/delete/{authorId}")
-	public ResponseEntity<String> deleteAuthorById(@RequestBody Author author) {
-		authorService.deleteAuthorById(author);
-		return ResponseEntity.status(HttpStatus.OK).body("Author is deleted....");
+	public ResponseEntity<Object> deleteAuthorById(@PathVariable("authorId") int authorId) {
+		Optional<Author> optional = authorService.getAuthorById(authorId);
+		if (!optional.isPresent())
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Given");
 
+		Author author = optional.get();
+		return ResponseEntity.status(HttpStatus.OK).body(author);
+		
+		
 	}
 
 }
