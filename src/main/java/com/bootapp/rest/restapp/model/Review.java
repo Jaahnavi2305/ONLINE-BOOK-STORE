@@ -1,6 +1,7 @@
 package com.bootapp.rest.restapp.model;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

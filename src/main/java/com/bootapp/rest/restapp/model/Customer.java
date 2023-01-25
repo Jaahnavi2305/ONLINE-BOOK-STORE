@@ -1,6 +1,7 @@
 package com.bootapp.rest.restapp.model;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,15 +9,21 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Customer {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@ManyToOne
-	private Book book;
 	
 	private int id;
 	private String name;
+	@ManyToOne
+	private Book book;
 	
+	
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	public int getId() {
 		return id;
 	}
@@ -29,11 +36,7 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Book getBook() {
-		return book;
-	}
-	public void setBook(Book book) {
-		this.book = book;
-	}
+	
+
 	
 }

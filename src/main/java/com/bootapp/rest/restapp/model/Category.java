@@ -1,6 +1,7 @@
 package com.bootapp.rest.restapp.model;
 
 import javax.persistence.Entity;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
