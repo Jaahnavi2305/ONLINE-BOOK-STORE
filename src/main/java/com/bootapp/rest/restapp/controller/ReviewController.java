@@ -2,6 +2,8 @@ package com.bootapp.rest.restapp.controller;
 
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class ReviewController {
 
 	/* Review PUT API */
 	@PutMapping("/update/{reviewId}")
-	public ResponseEntity<String> updateReviewById(@PathVariable("reviewId") int authorId, @RequestBody Review review)
+	public ResponseEntity<String> updateReviewById(@PathVariable("reviewId") int reviewId, @RequestBody Review review)
 	{
 	reviewService.updateReviewById(review);
     return ResponseEntity.status(HttpStatus.OK).body("Review is updated....");
