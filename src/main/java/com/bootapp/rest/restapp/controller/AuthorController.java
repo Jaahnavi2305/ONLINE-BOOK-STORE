@@ -3,7 +3,6 @@ package com.bootapp.rest.restapp.controller;
 import java.util.List;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootapp.rest.restapp.exception.NullValueException;
+import com.bootapp.rest.restapp.exsist.BookAlreadyExistsException;
 import com.bootapp.rest.restapp.model.Author;
 import com.bootapp.rest.restapp.service.AuthorService;
 
@@ -28,8 +29,9 @@ public class AuthorController {
 	// post api
 
 	@PostMapping("/add")
-	public ResponseEntity<String> postAuthor(@RequestBody Author author) {
-		authorService.postAuthor(author);
+	public ResponseEntity<String> postAuthor(@RequestBody Author author) throws NullValueException, BookAlreadyExistsException{
+		
+		authorService.insertAuthor(author);
 		return ResponseEntity.status(HttpStatus.OK).body("Author posted in DB");
 
 	}
@@ -54,24 +56,34 @@ public class AuthorController {
 	}
 
 	// put by id
+	@PutMapping("edit/{authorId}")
+	public ResponseEntity<String> editAuthor(@PathVariable("authorId") int authorId, @RequestBody Author authorNew)
+	{
+		Optional<Author> optional = authorService.getAuthorById(authorId);
+		if(!optional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("invalid Id");
+		}
+		Author authorDB = optional.get();
+			if(authorNew.getName() != null)
+				authorDB.setName(authorNew.getName());
+			if(authorNew.getBook() != null)
+				
+				authorDB.setBook(authorNew.getBook());
+			authorService.postAuthor(authorDB);
+			return ResponseEntity.status(HttpStatus.OK).body("author recorded edited");
+			
+			
+		}
+	
 
-	@PutMapping("/update/{authorId}")
-	public ResponseEntity<String> updateAuthorById(@PathVariable("authorId") int authorId, @RequestBody Author author) {
-		authorService.updateAuthorById(author);
-		return ResponseEntity.status(HttpStatus.OK).body("Author is updated....");
-	}
-	// delete by id
+	//delete by id
 
 	@DeleteMapping("/delete/{authorId}")
-	public ResponseEntity<Object> deleteAuthorById(@PathVariable("authorId") int authorId) {
-		Optional<Author> optional = authorService.getAuthorById(authorId);
-		if (!optional.isPresent())
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Given");
+       public ResponseEntity<Object> deleteAuthorById(@PathVariable("authorId") int authorId ){
+     Optional<Author> optional = authorService.getAuthorById(authorId);
+     if (!optional.isPresent())return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Given");
+	 authorService.deleteAuthorById(authorId);
+	 return ResponseEntity.status(HttpStatus.OK).body("author is deleted");
 
-		Author author = optional.get();
-		return ResponseEntity.status(HttpStatus.OK).body(author);
-		
-		
-	}
-
+}
 }
