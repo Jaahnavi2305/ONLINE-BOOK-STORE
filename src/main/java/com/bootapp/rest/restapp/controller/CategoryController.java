@@ -1,6 +1,7 @@
 package com.bootapp.rest.restapp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,33 +21,54 @@ import com.bootapp.rest.restapp.service.CategoryService;
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
-
 	@Autowired
 	private CategoryService categoryservice;
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<String> postCategory(@RequestBody Category category) {
 		categoryservice.insertBook(category);
 		return ResponseEntity.status(HttpStatus.OK).body("Category posted in DB");
-		
 	}
-	
+
 	@GetMapping("/getall")
 	public List<Category> getAllCategories() {
 		List<Category> list = categoryservice.getAllCategories();
 		return list;
 	}
-	
-	@PutMapping("/update/{categoryId}")
-	public ResponseEntity<String> updateAuthorById(@PathVariable("categoryId") int authorId, @RequestBody Category category){
-	categoryservice.updatecategoryById(category);
-	return ResponseEntity.status(HttpStatus.OK).body("Category is update");
+
+//    @PutMapping("/update/{categoryId}")
+//    public ResponseEntity<String> updateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
+//    categoryservice.updatecategoryById(category);
+//    return ResponseEntity.status(HttpStatus.OK).body("Category is update");
+//    }
+//    
+//    @PutMapping("/one/{categoryId}")
+//    public ResponseEntity<String> UpdateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category) {
+//     categoryservice.getCategoryById1(categoryId);
+//     return ResponseEntity.status(HttpStatus.OK).body("Category is updated");
+//    
+//    }
+	@PutMapping("/edit/{categoryId}")
+	public ResponseEntity<String> editCategory(@PathVariable("categoryId") int categoryId,
+			@RequestBody Category categoryNew) {
+		/* Step 1: check if this id given is valid by fetching the record from DB */
+		Optional<Category> optional = categoryservice.getCategoryById(categoryId);
+		if (!optional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("invalid ID");
+		}
+		Category categoryDB = optional.get();
+		if (categoryNew.getCategoryenum() != null)
+			categoryDB.setCategoryenum(categoryNew.getCategoryenum());
+		categoryservice.PostCategory(categoryDB);
+		return ResponseEntity.status(HttpStatus.OK).body("category record Edited..");
 	}
-	
+
 	@DeleteMapping("/delete/{categoryId}")
-	public ResponseEntity<String> deleteCategoryById(@RequestBody Category category){
-	categoryservice.deleteCategoryById(category);
-	return ResponseEntity.status(HttpStatus.OK).body("category is deleted....");
+	public ResponseEntity<Object> deleteCategoryById(@PathVariable("categoryId") int categoryId) {
+		Optional<Category> optional = categoryservice.getCategoryById(categoryId);
+		if (!optional.isPresent())
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID Given");
+		categoryservice.deleteCategoryById(categoryId);
+		return ResponseEntity.status(HttpStatus.OK).body("Category is deleted");
 	}
 }
-
