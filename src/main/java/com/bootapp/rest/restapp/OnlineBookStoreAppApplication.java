@@ -15,5 +15,11 @@ public class OnlineBookStoreAppApplication{
 		SpringApplication.run(OnlineBookStoreAppApplication.class, args);
 	}
 
+<<<<<<< HEAD
 
 }
+=======
+}
+
+
+>>>>>>> 689240292bfbd48eb72d7d27c237ebebcddfeaf1
