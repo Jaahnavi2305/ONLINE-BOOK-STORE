@@ -1,41 +1,31 @@
 package com.bootapp.rest.restapp.model;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.bootapp.rest.restapp.enums.CategoryEnum;
-
+import javax.persistence.Table;
 @Entity
+@Table(name = "category")
 public class Category {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	
-		private int id;
-	
-		@Enumerated(EnumType.STRING)
-		private CategoryEnum categoryenum;
-		
-		
-		public int getId() {
-			return id;
-		}
+	 @Id
+ @GeneratedValue(strategy = GenerationType.AUTO)
+ private int id;
+ @Column(name = "CategoryName")
+ private String categoryName;
 
-		public void setId(int id) {
-			this.id = id;
-		}
 
-		public CategoryEnum getCategoryenum() {
-			return categoryenum;
-		}
-
-		public void setCategoryenum(CategoryEnum categoryenum) {
-			this.categoryenum = categoryenum;
-		}
-
-		
+public int getId() {
+	return id;
 }
-
+public void setId(int id) {
+	this.id = id;
+}
+public String getCategoryName() {
+	return categoryName;
+}
+public void setCategoryName(String categoryName) {
+	this.categoryName = categoryName;
+}
+ 
+ }
