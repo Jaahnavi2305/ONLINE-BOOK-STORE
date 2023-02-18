@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootapp.rest.restapp.data.AuthorRepository;
-
 import com.bootapp.rest.restapp.exsist.BookAlreadyExistsException;
 import com.bootapp.rest.restapp.model.Author;
 import com.rest.restapp.Exception.NullValueException;
@@ -18,26 +17,26 @@ public class AuthorService {
 	@Autowired
 	private AuthorRepository authorRepository;
 
-//	public void insertAuthor(Author author) {
-//	authorRepository.save(author);
-//		
-//	}
-	public void insertAuthor(Author author) throws NullValueException, BookAlreadyExistsException {
+	public void insertAuthor(Author author) {
+	authorRepository.save(author);
 		
-		
-		List<Author> p1 = authorRepository.findAll();
-		      for( Author p : p1) {
-		        if(p.getName().equalsIgnoreCase(author.getName())) {
-		   throw new BookAlreadyExistsException("name already exists");
-	                       }
-              }
-		String s1 = author.getBook();
-		if (s1 == "") {
-			throw new NullValueException("Enter a name first");
-		} else {
-			authorRepository.save(author);
-		}
 	}
+//	public void insertAuthor(Author author) throws NullValueException, BookAlreadyExistsException {
+//		
+//		
+//		List<Author> p1 = authorRepository.findAll();
+//		      for( Author p : p1) {
+//		        if(p.getName().equalsIgnoreCase(author.getName())) {
+//		   throw new BookAlreadyExistsException("name already exists");
+//	                       }
+//              }
+//		String s1 = author.getBook();
+//		if (s1 == "") {
+//			throw new NullValueException("Enter a name first");
+//		} else {
+//			authorRepository.save(author);
+//		}
+//	}
 
 	public List<Author> getAllAuthor() {
 		return authorRepository.findAll();

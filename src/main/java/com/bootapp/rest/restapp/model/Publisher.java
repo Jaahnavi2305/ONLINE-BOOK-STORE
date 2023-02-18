@@ -11,10 +11,10 @@ public class Publisher {
 @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
  private int id;
-@Column(name = "name")
+@Column(name = "publisher_name")
  private String name;
-@Column(name = "bookname")
- private String bookname;
+//@Column(name = "bookname")
+// private String bookname;
  @Column(name = "price") 
  private int price;
 public int getId() {
@@ -29,12 +29,12 @@ public String getName() {
 public void setName(String name) {
 	this.name = name;
 }
-public String getBookname() {
-	return bookname;
-}
-public void setBookname(String bookname) {
-	this.bookname = bookname;
-}
+//public String getBookname() {
+//	return bookname;
+//}
+//public void setBookname(String bookname) {
+//	this.bookname = bookname;
+//}
 public int getPrice() {
 	return price;
 }

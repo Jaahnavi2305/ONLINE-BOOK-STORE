@@ -1,4 +1,5 @@
 package com.bootapp.rest.restapp.model;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +11,11 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
 	private int id;
+	@Column(name = "author_name")
 	private String name;
-	private String book;
-	
+	private String speciality;
+	private String language;
+//	private String book;
 	public int getId() {
 		return id;
 	}
@@ -25,12 +28,23 @@ public class Author {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBook() {
-		return book;
+	public String getSpeciality() {
+		return speciality;
 	}
-	public void setBook(String book) {
-		this.book = book;
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
 	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	
+	
+	
+	
 	
 
 

@@ -17,7 +17,7 @@ import com.bootapp.rest.restapp.model.Category;
 import com.bootapp.rest.restapp.model.Customer;
 import com.bootapp.rest.restapp.model.Publisher;
 import com.bootapp.rest.restapp.model.Review;
-import com.rest.restapp.Exception.CustomerNotFoundException;
+
 
 @Service
 public class BookService {
@@ -31,7 +31,7 @@ public class BookService {
 	private PublisherRepository publisherRepository;
 
 
-        public void postBook(int cid,int aid,int pid, Book book) {
+        public void insertBook(int cid,int aid,int pid, Book book) {
 		 Optional<Author> a1 = authorRepository.findById(aid);
 		 book.setAuthor(a1.get());
 		 Optional<Publisher> p1 = publisherRepository.findById(pid);
@@ -131,4 +131,3 @@ public class BookService {
 	
 	
 	
-

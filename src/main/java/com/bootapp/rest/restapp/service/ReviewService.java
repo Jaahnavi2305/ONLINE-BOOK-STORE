@@ -2,9 +2,12 @@ package com.bootapp.rest.restapp.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bootapp.rest.restapp.data.ReviewRepository;
+import com.bootapp.rest.restapp.model.Book;
 import com.bootapp.rest.restapp.model.Review;
 import com.rest.restapp.Exception.NullValueException;
 
@@ -46,4 +49,13 @@ public class ReviewService {
 	public void PostReview(Review reviewDB) {
 		reviewRepository.save(reviewDB);
 		}
+	public List<Review> getBookByBkkId(int bid) {
+		List<Review> list = reviewRepository.findAll();
+		
+		List<Review> filteredList = list.stream() 
+					.filter(e->e.getBook().getId() == bid)
+					.collect(Collectors.toList());
+		
+		return filteredList;
+	}
 }

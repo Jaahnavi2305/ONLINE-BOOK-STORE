@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bootapp.rest.restapp.data.BookRepository;
 import com.bootapp.rest.restapp.data.CustomerRepository;
 import com.bootapp.rest.restapp.model.Book;
 import com.bootapp.rest.restapp.model.Customer;
@@ -19,8 +20,10 @@ import com.rest.restapp.Exception.NullValueException;
 public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private BookRepository bookRepository;
 
-//
+
 //	public void insertCustomer(Customer customer) {
 //		
 //		customerRepository.save(customer);
@@ -63,15 +66,15 @@ public class CustomerService {
 		//customerRepository.delete(optional.get());
 		//return optional.get();
 	}
-	public List<Customer> getCustomerByBookId(int bid) {
-		List<Customer> list = customerRepository.findAll();
-		
-		List<Customer> filteredList = list.stream() 
-					.filter(e->e.getBook().getId() == bid)
-					.collect(Collectors.toList());
-		
-		return filteredList;
-	}
+//	public List<Customer> getCustomerByBookId(int bid) {
+//		List<Customer> list = customerRepository.findAll();
+//		
+//		List<Customer> filteredList = list.stream() 
+//					.filter(e->e.getBook().getId() == bid)
+//					.collect(Collectors.toList());
+//		
+//		return filteredList;
+//	}
 	
 	
 

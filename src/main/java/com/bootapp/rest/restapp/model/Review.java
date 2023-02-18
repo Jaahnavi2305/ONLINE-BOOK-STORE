@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
 @Entity
 public class Review {
 
@@ -14,6 +14,8 @@ private int id;
 	private int rating;
 	private String comments;
 	private String bookName;
+	@ManyToOne
+	private Book book;
 	public int getId() {
 		return id;
 	}
@@ -32,12 +34,21 @@ private int id;
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	public String getBookName() {
 		return bookName;
 	}
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
+	
+	
 
 
 }

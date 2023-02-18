@@ -24,6 +24,8 @@ public class Book {
 		private Author author;
 		@ManyToOne
 		private Category category;
+//		@ManyToOne
+//		private Customer customer;
 		public int getId() {
 			return id;
 		}
@@ -54,6 +56,13 @@ public class Book {
 		public void setCategory(Category category) {
 			this.category = category;
 		}
+//		public Customer getCustomer() {
+//			return customer;
+//		}
+//		public void setCustomer(Customer customer) {
+//			this.customer = customer;
+//		}
+		
 		
 		
 
