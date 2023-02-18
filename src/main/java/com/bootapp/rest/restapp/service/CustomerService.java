@@ -1,6 +1,8 @@
 package com.bootapp.rest.restapp.service;
 
 import java.util.List;
+
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -8,55 +10,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootapp.rest.restapp.data.CustomerRepository;
+import com.bootapp.rest.restapp.exception.CustomerNotFoundException;
+import com.bootapp.rest.restapp.exception.NullValueException;
+import com.bootapp.rest.restapp.model.Book;
 import com.bootapp.rest.restapp.model.Customer;
-
-
-
 
 @Service
 public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public void insertCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		customerRepository.save(customer);
+
+	public void insertCustomer(Customer customer) throws NullValueException{
+		String s1 = customer.getName();
+		if (s1 == "") {
+			throw new NullValueException("Enter a customer name first");
+		} else {
+			customerRepository.save(customer);
+		}
 	}
+	
 
 	public List<Customer> getAllCustomers() {
-		// TODO Auto-generated method stub
+
 		return customerRepository.findAll();
 	}
 
 	public Optional<Customer> getCustomerById(int id) {
-		// TODO Auto-generated method stub
 
-		Optional<Customer> optional=customerRepository.findById(id);
+		Optional<Customer> optional = customerRepository.findById(id);
 		return optional;
+	}
+
+	public void PostCustomer(Customer customerDB) {
+		customerRepository.save(customerDB);
+	}
+
+public Customer deleteCustomerById(int customerId) throws CustomerNotFoundException {
+		
+		Optional<Customer> act = customerRepository.findById(customerId);
+		if(act.isPresent()) {
+			customerRepository.delete(act.get());
+			return act.get();
+		} else
+		{
+			throw new CustomerNotFoundException("Customer not Found");
 		}
-
-	public void updateCustomerById(Customer customer) {
-		// TODO Auto-generated method stub
-		customerRepository.save(customer);
-		
+		//customerRepository.delete(optional.get());
+		//return optional.get();
 	}
-
-	public void deleteCustomerById(Customer customer) {
-		// TODO Auto-generated method stub
-		customerRepository.delete(customer);
-		
-	}
-
-
-	 
-	 public List<Customer> getCustomersByBookId(int id){
-		 List<Customer> list = customerRepository.findAll();
-		 List<Customer> filteredList = list.stream().filter(e->e.getBook().getId() == id).collect(Collectors.toList());
-		 return filteredList;
-		 }
-	
-
-
+//	public List<Customer> getCustomerByBookId(int bid) {
+//		List<Customer> list = customerRepository.findAll();
+//		
+//		List<Customer> filteredList = list.stream().filter(e->e.getBook().getId() == bid).collect(Collectors.toList());
+//		
+//		return filteredList;
+//	}
+//	
 	
 
 }
