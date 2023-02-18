@@ -17,7 +17,7 @@ public class Review {
 	private String bookName;
 
 	
-
+   
 	public String getBookName() {
 		return bookName;
 	}
@@ -25,8 +25,6 @@ public class Review {
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-
-	
 
 	public int getId() {
 		return id;
@@ -51,5 +49,7 @@ public class Review {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+
+	
 
 }

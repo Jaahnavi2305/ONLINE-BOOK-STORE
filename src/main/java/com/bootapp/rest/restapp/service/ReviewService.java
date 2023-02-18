@@ -20,7 +20,7 @@ public class ReviewService {
 	// reviewRepository.save(review);
 	// }
 
-	public void insertBook(Review review) throws NullValueException {
+	public void insertReview(Review review) throws NullValueException {
 
 		String s1 = review.getBookName();
 		if (s1 == "") {
@@ -41,11 +41,11 @@ public class ReviewService {
 		Optional<Review> optional = reviewRepository.findById(id);
 		return optional;
 	}
-	
+
 	public List<Review> getAllReview() {
 		List<Review> list = reviewRepository.findAll();
 		return list;
-		}
+	}
 
 	public void PostReview(Review reviewDB) {
 		// TODO Auto-generated method stub
@@ -54,4 +54,5 @@ public class ReviewService {
 	}
 
 	
+
 }

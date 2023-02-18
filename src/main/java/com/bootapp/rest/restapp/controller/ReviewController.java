@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,21 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootapp.rest.restapp.dto.Message;
 import com.bootapp.rest.restapp.exception.NullValueException;
 import com.bootapp.rest.restapp.model.Review;
 import com.bootapp.rest.restapp.service.ReviewService;
 
 @RestController
+@CrossOrigin(origins = { "*" })
+
 @RequestMapping("/api/review")
 public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 
 	/* Review POST API */
+
 	@PostMapping("/add")
-	public ResponseEntity<String> insertReview(@RequestBody Review review) throws NullValueException{
-		reviewService.insertBook(review);
-		return ResponseEntity.status(HttpStatus.OK).body("Review posted in DB");
+	public ResponseEntity<Message> insertReview(@RequestBody Review review) throws NullValueException {
+		Message m = new Message();
+		try {
+			reviewService.insertReview(review);
+			m.setMsg("Review added");
+			return ResponseEntity.status(HttpStatus.OK).body(m);
+		} catch (Exception e) {
+			m.setMsg("Could not process the request, Try Again");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
+		}
 	}
 
 	/* Get All API */
@@ -39,8 +51,8 @@ public class ReviewController {
 		return list;
 	}
 
-	/* Review PUT API*/
-	 
+	/* Review PUT API */
+
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<String> editReview(@PathVariable("id") int id, @RequestBody Review reviewNew) {
 		/* Step 1: check if this id given is valid by fetching the record from DB */
