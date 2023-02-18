@@ -1,8 +1,10 @@
 package com.bootapp.rest.restapp.model;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Author {
@@ -12,6 +14,9 @@ public class Author {
 	private int authorId;
 	private String name;
 	private String book;
+	@OneToOne
+	private User user;
+	
 	public int getAuthorId() {
 		return authorId;
 	}
@@ -30,8 +35,11 @@ public class Author {
 	public void setBook(String book) {
 		this.book = book;
 	}
-	
-
-
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}	
 	
 }
