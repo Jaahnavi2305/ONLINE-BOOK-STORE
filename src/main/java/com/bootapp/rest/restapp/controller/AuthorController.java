@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,26 +16,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootapp.rest.restapp.dto.Message;
 import com.bootapp.rest.restapp.exsist.BookAlreadyExistsException;
 import com.bootapp.rest.restapp.model.Author;
+import com.bootapp.rest.restapp.model.Customer;
 import com.bootapp.rest.restapp.service.AuthorService;
 import com.rest.restapp.Exception.NullValueException;
 
 @RestController
+@CrossOrigin(origins = {"*"})
 @RequestMapping("/api/author")
 public class AuthorController {
 	@Autowired
 	private AuthorService authorService;
 
 	// post api
-
 	@PostMapping("/add")
-	public ResponseEntity<String> postAuthor(@RequestBody Author author) throws NullValueException, BookAlreadyExistsException{
-		
-		authorService.insertAuthor(author);
-		return ResponseEntity.status(HttpStatus.OK).body("Author posted in DB");
+	public ResponseEntity<Message> insertAuthor(@RequestBody Author author) {
+		Message m = new Message();
+		try {
+			authorService.insertAuthor(author);
+			m.setMsg("Author added");
+			return ResponseEntity.status(HttpStatus.OK).body(m);
+		}
+		catch(Exception e) {
+			m.setMsg("Could not process the request, Try Again");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
+		}
+			
+		}
 
-	}
+//	@PostMapping("/add")
+//	public ResponseEntity<String> postAuthor(@RequestBody Author author) {
+//		
+//		authorService.insertAuthor(author);
+//		return ResponseEntity.status(HttpStatus.OK).body("Author posted in DB");
+//
+//	}
 
 	// get all
 
@@ -66,9 +84,9 @@ public class AuthorController {
 		Author authorDB = optional.get();
 			if(authorNew.getName() != null)
 				authorDB.setName(authorNew.getName());
-			if(authorNew.getBook() != null)
+		//	if(authorNew.getBook() != null)
 				
-				authorDB.setBook(authorNew.getBook());
+			//	authorDB.setBook(authorNew.getBook());
 			authorService.postAuthor(authorDB);
 			return ResponseEntity.status(HttpStatus.OK).body("author recorded edited");
 			

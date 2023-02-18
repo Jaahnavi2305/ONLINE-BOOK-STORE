@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootapp.rest.restapp.data.PublisherRepository;
 import com.bootapp.rest.restapp.exsist.BookAlreadyExistsException;
+import com.bootapp.rest.restapp.model.Category;
 import com.bootapp.rest.restapp.model.Publisher;
 import com.rest.restapp.Exception.NullValueException;
 import com.rest.restapp.Exception.PublisherNotFoundException;
@@ -18,35 +19,34 @@ public class PublisherService {
 	@Autowired
 	private PublisherRepository publisherRepository;
 
-	public void insertBook(Publisher publisher) throws BookAlreadyExistsException,NullValueException{
-		  List<Publisher> p1 = publisherRepository.findAll();
-		  for( Publisher p : p1) {
-			  if(p.getBookname().equalsIgnoreCase(publisher.getBookname())) {
-		 throw new BookAlreadyExistsException("Book already exists");
-		 }
-				  String s1 = publisher.getBookname();
-				   if(s1=="") {
-				   throw new NullValueException("Enter a bookname first");
-				   }
-			 else {
-		 publisherRepository.save(publisher);
-			 
-		  }
-				   }  
-}
+//	public void insertBook(Publisher publisher) throws BookAlreadyExistsException,NullValueException{
+//		  List<Publisher> p1 = publisherRepository.findAll();
+//		  for( Publisher p : p1) {
+//			  if(p.getBookname().equalsIgnoreCase(publisher.getBookname())) {
+//		 throw new BookAlreadyExistsException("Book already exists");
+//		 }
+//				  String s1 = publisher.getBookname();
+//				   if(s1=="") {
+//				   throw new NullValueException("Enter a bookname first");
+//				   }
+//			 else {
+//		 publisherRepository.save(publisher);
+//			 
+//		}		
+//		}  
+//}
 	 public List<Publisher> getAllPublishers() {
 		  List<Publisher> list = publisherRepository.findAll();
 		 return list;
 		 }
-	 public Optional<Publisher> getPublisherById(int id) {
-		  Optional<Publisher> aa = publisherRepository.findById(id);
-		  return aa;
-	}
+//	 public Optional<Publisher> getPublisherById(int id) {
+//		  Optional<Publisher> aa = publisherRepository.findById(id);
+//		  return aa;
+//	}
 	 public void updatePublisherById(int pid, Publisher publisher) {
 		  Optional<Publisher> p = publisherRepository.findById(pid);
 		  Publisher p1 = p.get();
 		  p1.setName(publisher.getName());
-		  p1.setBookname(publisher.getBookname());
 		  p1.setPrice(publisher.getPrice());
 //		         p1.setUser(publisher.getUser());
 		  publisherRepository.save(p1);
@@ -60,6 +60,15 @@ public class PublisherService {
 		else {
 			throw new PublisherNotFoundException("Publisher Not Found");
 	}
+	}
+	public Publisher getPublisherById(int pid) {
+		Optional<Publisher> optional = publisherRepository.findById(pid);
+		if(optional !=null)
+		return optional.get();
+		return null;
+	}
+	public void insertPublisher(Publisher publisher) {
+      publisherRepository.save(publisher);		
 	}
 	
 }
